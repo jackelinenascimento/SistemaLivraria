@@ -6,15 +6,8 @@ import java.util.List;
 public class LivroControl {
 	
 	private List<Livro> livros = new ArrayList<Livro>();
-	private static int contador = 1;
 	
 	public void adicionar(Livro livro) {
-		
-		if(contador == 1) {
-			livro.setId((long) contador);	
-		} else {
-			livro.setId((long) contador++);
-		}
 		
 		livros.add(livro);
 	}
@@ -36,7 +29,7 @@ public class LivroControl {
 		try {
 			
 			for(Livro livro : livros) {
-				if(livro.getId() == livroPesquisado.getId()) {
+				if(livro.getIsbn() == livroPesquisado.getIsbn()) {
 					
 					if(livroPesquisado.getIsbn() != null && livroPesquisado.getIsbn() != livro.getIsbn())
 						livro.setIsbn(livroPesquisado.getIsbn());
@@ -69,10 +62,10 @@ public class LivroControl {
 			
 	}
 	
-	public void excluirPorId(Long id) {
+	public void excluirPorId(Long isbn) {
 		
 		for(Livro livro : livros) {
-			if(livro.getId() == id) {
+			if(livro.getIsbn() == isbn) {
 				livros.remove(livro);
 			}
 		}

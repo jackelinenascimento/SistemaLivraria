@@ -1,22 +1,16 @@
 package livro;
 
+import java.time.LocalDate;
+
 public class Livro {
 	
-	private Long id;
 	private Long isbn;
 	private String titulo;
 	private String autor;
 	private String editora;
+	private LocalDate lancamento;
 	private Double valor;
 	private Integer qtdeExemplares;
-	
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
 	
 	public Long getIsbn() {
 		return isbn;
@@ -64,5 +58,13 @@ public class Livro {
 	
 	public void setQtdeExemplares(Integer qtdeExemplares) {
 		this.qtdeExemplares = qtdeExemplares;
+	}
+
+	public LocalDate getLancamento() {
+		return lancamento;
+	}
+
+	public void setLancamento(LocalDate lancamento) {
+		this.lancamento = lancamento;
 	}
 }
