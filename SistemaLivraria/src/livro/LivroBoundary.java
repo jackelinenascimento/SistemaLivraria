@@ -1,6 +1,6 @@
 package livro;
 
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 
 import javafx.application.Application;
 import javafx.geometry.HPos;
@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.converter.DateTimeStringConverter;
 
 public class LivroBoundary extends Application {
 
@@ -29,7 +30,6 @@ public class LivroBoundary extends Application {
 	
 	private LivroControl control = new LivroControl();
 	
-	private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 	public void start(Stage stage) throws Exception {
 		
@@ -38,7 +38,7 @@ public class LivroBoundary extends Application {
         gp.setHgap(7);
         gp.setVgap(7);
 	    
-        Scene scn = new Scene(gp, 400, 400);
+        Scene scn = new Scene(gp, 430, 400);
 	    
 	    gp.add(new Label("ISBN"), 0, 0);
 	    gp.add(txtIsbn, 1, 0);
@@ -59,17 +59,30 @@ public class LivroBoundary extends Application {
 	    gp.add(new Label("Lançamento"), 0, 4);
 	    gp.add(txtLancamento, 1, 4);
 	    txtLancamento.setMaxWidth(100);
+	    txtLancamento.setPromptText(" ___ / __ / ____ ");
 	    
 	    Label valor = new Label("Valor");
 	    gp.add(valor, 2, 4);
-	    GridPane.setHalignment(valor, HPos.RIGHT);
+	    GridPane.setHalignment(valor, HPos.CENTER);
 	    gp.add(txtValor, 3, 4);
 	    txtValor.setMaxWidth(100);
-
+	    txtValor.setPromptText("R$ ___ , __ ");
 	
 	    gp.add(new Label("Quantidade"), 0, 5);
 	    gp.add(txtQtdadeExemplares, 1, 5);
 	    txtQtdadeExemplares.setMaxWidth(100);
+	    
+	    btnConsultar.setMinWidth(75);
+	    GridPane.setHalignment(btnConsultar, HPos.CENTER);
+
+	    btnIncluir.setMinWidth(75);
+	    GridPane.setHalignment(btnIncluir, HPos.CENTER);
+	    
+	    btnAlterar.setMinWidth(75);
+	    GridPane.setHalignment(btnAlterar, HPos.CENTER);
+	    
+	    btnExcluir.setMinWidth(75);
+	    GridPane.setHalignment(btnExcluir, HPos.CENTER);
 	    
 	    gp.add(btnConsultar, 0, 6);
 	    gp.add(btnIncluir, 1, 6);
