@@ -61,7 +61,7 @@ public class LivroBoundary extends Application {
 		gp.add(new Label("Lançamento"), 0, 4);
 		gp.add(txtLancamento, 1, 4);
 		txtLancamento.setMaxWidth(100);
-		txtLancamento.setPromptText(" _ _ / _ _ / _ _ _ _ ");
+		txtLancamento.setPromptText("_ _ / _ _ / _ _ _ _ ");
 		
 		Label valor = new Label("Valor");
 		gp.add(valor, 2, 4);
@@ -93,23 +93,80 @@ public class LivroBoundary extends Application {
 
 		btnConsultar.setOnAction((e) -> {
 
+			Long isbn = null;
+			
+			try {
+				isbn = Long.parseLong(txtIsbn.getText().trim());
+			} catch (Exception e1) {
+				e1.getMessage();
+			} finally {
+				isbn = null;
+			}
+			
+			Livro livro = control.pesquisar(isbn, txtTitulo.getText().trim());
+			
+			if(livro == null) {
+				AlertMessage.alert("Livro não encontrado.");
+				clean();
+			}
+			
+			this.entityToBoundary(livro);
 		});
 
 		btnIncluir.setOnAction((e) -> {
 
-			Livro livro = control.pesquisarPorIsbn(txtIsbn.getText());
+			Livro livro = control.pesquisar(Long.parseLong(txtIsbn.getText()), txtTitulo.getText());
 
 			if (livro != null) {
 				AlertMessage.alert("ISBN já incluso no sistema!");
 			} else {
 				try {
+					txtValor.getText().replaceAll(",", ".");
 					control.adicionar(boundaryToEntity());
 					this.entityToBoundary(new Livro());
 					clean();
+				
 				} catch (Exception e1) {
 					e1.getMessage();
 				}
 			}
+		});
+		
+		btnAlterar.setOnAction((e) -> {
+			
+			Livro livro = new Livro();
+			
+			if(txtIsbn.getText() != null || txtTitulo.getText() != null) {
+				livro = control.pesquisar(Long.parseLong(txtIsbn.getText()), txtTitulo.getText());	
+			}
+						
+			if(livro != null) {
+				try {
+					txtLancamento.setText(txtLancamento.getText().replace("-",""));
+					txtLancamento.setText(txtLancamento.getText().substring(4, 5) + txtLancamento.getText().substring(6, 7) + txtLancamento.getText().substring(0, 3));
+					control.alterarDados(this.boundaryToEntity());
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+			
+		});
+		
+		btnExcluir.setOnAction((e) -> {
+			
+			Livro livro = new Livro();
+			
+			if(txtIsbn.getText() != null || txtTitulo.getText() != null) {
+				livro = control.pesquisar(Long.parseLong(txtIsbn.getText()), txtTitulo.getText());	
+			}
+			
+			if(livro == null) {
+				AlertMessage.alert("Livro não encontrado. Erro ao excluir");
+			} else {				
+				control.excluir(livro.getIsbn());
+				AlertMessage.alert("Livro excluido com sucesso!");
+			}
+			clean();
 		});
 
 		stage.setScene(scn);
@@ -127,13 +184,14 @@ public class LivroBoundary extends Application {
 		txtTitulo.setText(" ");
 		txtAutor.setText(" ");
 		txtEditora.setText(" ");
+		
 		txtLancamento.setText(" ");
 		txtValor.setText(" ");
 		txtQtdadeExemplares.setText(" ");
 
 	}
 
-	private Livro boundaryToEntity() {
+	private Livro boundaryToEntity() throws Exception{
 
 		Livro livro = new Livro();
 
@@ -142,9 +200,13 @@ public class LivroBoundary extends Application {
 			livro.setIsbn(Long.parseLong(txtIsbn.getText().trim()));
 			livro.setTitulo(txtTitulo.getText().trim());
 			livro.setAutor(txtAutor.getText().trim());
+			
 			livro.setEditora(txtEditora.getText().trim());
-			livro.setLancamento(LocalDate.parse(txtLancamento.getText(), dtf));
+			livro.setLancamento(LocalDate.parse(txtLancamento.getText().trim(), dtf));
+			livro.setValor(Float.parseFloat(txtValor.getText().trim()));
+			
 			livro.setQtdeExemplares(Integer.parseInt(txtQtdadeExemplares.getText().trim()));
+	
 			AlertMessage.alert("Livro incluido com sucesso!");
 
 		} catch (Exception e) {
@@ -164,9 +226,11 @@ public class LivroBoundary extends Application {
 			txtIsbn.setText(String.valueOf(livro.getIsbn()));
 			txtTitulo.setText(String.valueOf(livro.getTitulo()));
 			txtAutor.setText(String.valueOf(livro.getAutor()));
+			
 			txtEditora.setText(String.valueOf(livro.getEditora()));
 			txtLancamento.setText(String.valueOf(livro.getLancamento()));
 			txtValor.setText(String.valueOf(livro.getValor()));
+			
 			txtQtdadeExemplares.setText(String.valueOf(livro.getQtdeExemplares()));
 		}
 	}

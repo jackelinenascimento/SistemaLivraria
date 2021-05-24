@@ -11,36 +11,35 @@ public class LivroControl {
 		livros.add(livro);
 	}
 
-	public List<Livro> pesquisarPorTitulo(String titulo) {
-
-		List<Livro> pesquisa = new ArrayList<Livro>();
-
-		for (Livro livro : livros) {
-			if (livro.getTitulo().contains(titulo)) {
-				pesquisa.add(livro);
-			}
-		}
-		return pesquisa;
-	}
-
-	public Livro pesquisarPorIsbn(String isbn) {
+	public Livro pesquisar(Long isbn, String titulo) {
 
 		Livro pesquisa = null;
 
-		for (Livro livro : livros) {
-			if (livro.getTitulo().contains(isbn)) {
+		if(isbn != null) {
+			for (Livro livro : livros) {
+				if (livro.getIsbn() == isbn) {
+					pesquisa = livro;
+				}
+			}
+		}	
+		
+		if(titulo != null) {
+			for (Livro livro : livros) {
+				if (livro.getTitulo().contains(titulo)) {
 				pesquisa = livro;
+				}
 			}
 		}
+		
 		return pesquisa;
 	}
 
-	public Livro alterarDadosBuscaPorId(Livro livroPesquisado) {
+	public Livro alterarDados(Livro livroPesquisado) {
 
 		try {
 
 			for (Livro livro : livros) {
-				if (livro.getIsbn() == livroPesquisado.getIsbn()) {
+				if (livro.getIsbn() == livroPesquisado.getIsbn() || livro.getTitulo().contains(livroPesquisado.getTitulo())) {
 
 					if (livroPesquisado.getIsbn() != null && livroPesquisado.getIsbn() != livro.getIsbn())
 						livro.setIsbn(livroPesquisado.getIsbn());
@@ -74,7 +73,7 @@ public class LivroControl {
 
 	}
 
-	public void excluirPorId(Long isbn) {
+	public void excluir(Long isbn) {
 
 		for (Livro livro : livros) {
 			if (livro.getIsbn() == isbn) {

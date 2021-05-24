@@ -9,7 +9,7 @@ public class Livro {
 	private String autor;
 	private String editora;
 	private LocalDate lancamento;
-	private Double valor;
+	private Float valor;
 	private Integer qtdeExemplares;
 	
 	public Long getIsbn() {
@@ -44,11 +44,11 @@ public class Livro {
 		this.editora = editora;
 	}
 	
-	public Double getValor() {
+	public Float getValor() {
 		return valor;
 	}
 	
-	public void setValor(Double valor) {
+	public void setValor(Float valor) {
 		this.valor = valor;
 	}
 	
