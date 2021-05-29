@@ -11,12 +11,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import utils.AlertMessage;
 import utils.CommonFunctions;
 
 public class Login extends Application {
 
 	private TextField txtUsuario = new TextField();
-	private PasswordField txtSenha = new PasswordField();
+	private TextField txtSenha = new PasswordField();
 	private Button btnconfirmar = new Button("Confirmar");
 	private Button btnCancelar = new Button("Cancelar");
 	private Button btnSair = new Button("Fechar");
@@ -46,9 +47,8 @@ public class Login extends Application {
 
 			System.out.println(txtUsuario.getText() + " " + txtSenha.getText());
 			
-		//	if (txtUsuario.getText() == "root" || txtSenha.getText() == "1234") {
-				
-				
+			if (txtUsuario.getText().equals("root") && txtSenha.getText().equals("1234")) {
+					
 				TelaInicialFuncionario tela = new TelaInicialFuncionario();
 				
 				try {
@@ -58,10 +58,10 @@ public class Login extends Application {
 					e1.printStackTrace();
 				}
 				
-	//		} else {
-		//		AlertMessage.alert("Dados incorretos. Tente novamente.");
-		//		CommonFunctions.limparCampos(txtUsuario, txtSenha);
-		//	}
+			} else {
+				AlertMessage.alert("Dados incorretos. Tente novamente.");
+				CommonFunctions.limparCampos(txtUsuario, txtSenha);
+			}
 		});
 
 		btnCancelar.setMinWidth(75);
