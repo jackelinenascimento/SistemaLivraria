@@ -39,7 +39,7 @@ public class LivroControl {
 		try {
 
 			for (Livro livro : livros) {
-				if (livro.getIsbn() == livroPesquisado.getIsbn() || livro.getTitulo().contains(livroPesquisado.getTitulo())) {
+				if (livro.getIsbn().equals(livroPesquisado.getIsbn()) || livro.getTitulo().contains(livroPesquisado.getTitulo())) {
 
 					if (livroPesquisado.getIsbn() != null && livroPesquisado.getIsbn() != livro.getIsbn())
 						livro.setIsbn(livroPesquisado.getIsbn());
@@ -76,7 +76,7 @@ public class LivroControl {
 	public void excluir(Long isbn) {
 
 		for (Livro livro : livros) {
-			if (livro.getIsbn() == isbn) {
+			if (livro.getIsbn().equals(isbn)) {
 				livros.remove(livro);
 			}
 		}

@@ -17,14 +17,14 @@ public class TelaInicialFuncionario extends Application {
 	private Button btnLivros = new Button("Livros");
 	
 	private Button btnEstoque = new Button("Estoque");
-	private Button btnSair = new Button("Fechar");
+	private Button btnFecharTela = new Button("Fechar");
 	
 
 	@Override
 	public void start(Stage stage) throws Exception {
 
 		GridPane gp = new GridPane();
-		gp.setPadding(new Insets(60, 0, 20, 20));
+		gp.setPadding(new Insets(60, 60, 0, 60));
 		gp.setHgap(10);
 		gp.setVgap(10);
 
@@ -34,19 +34,32 @@ public class TelaInicialFuncionario extends Application {
 		
 		gp.add(btnCliente, 0, 1);
 		gp.add(btnFuncionario, 0, 2);
-		gp.add(btnLivros, 1, 1);	
+		gp.add(btnLivros, 1, 1);
+		
+		btnLivros.setOnAction((e) -> {
+			
+			LivroBoundary tela = new LivroBoundary();
+			try {
+				tela.start(new Stage());
+				CommonFunctions.fecharTela(stage);
+				
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
+		
 		gp.add(btnEstoque, 1, 2);
 		
 		CommonFunctions.tamanhoBotao(150, 80, btnCliente, btnFuncionario, btnLivros, btnEstoque);
 
-		gp.add(btnSair, 0, 4);
-		CommonFunctions.tamanhoBotao(50, 20, btnSair);
+		gp.add(btnFecharTela, 1, 10);
+		CommonFunctions.tamanhoBotao(50, 20, btnFecharTela);
 		
-		btnSair.setOnMouseClicked((e) -> {
+		btnFecharTela.setOnMouseClicked((e) -> {
 			CommonFunctions.fecharTela(stage);
 		});
 
-		btnSair.setOnKeyPressed((e) -> {
+		btnFecharTela.setOnKeyPressed((e) -> {
 			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE) {
 				CommonFunctions.fecharTela(stage);
 			}

@@ -25,7 +25,7 @@ public class Login extends Application {
 	public void start(Stage stage) throws Exception {
 
 		GridPane gp = new GridPane();
-		gp.setPadding(new Insets(60, 0, 20, 20));
+		gp.setPadding(new Insets(60, 60, 0, 60));
 		gp.setHgap(10);
 		gp.setVgap(10);
 
@@ -45,8 +45,6 @@ public class Login extends Application {
 
 		btnconfirmar.setOnMouseClicked((e) -> {
 
-			System.out.println(txtUsuario.getText() + " " + txtSenha.getText());
-			
 			if (txtUsuario.getText().equals("root") && txtSenha.getText().equals("1234")) {
 					
 				TelaInicialFuncionario tela = new TelaInicialFuncionario();
@@ -93,7 +91,7 @@ public class Login extends Application {
 		});
 
 		stage.setScene(scn);
-		stage.setTitle("*** Login ***	");
+		stage.setTitle("*** Login ***");
 		stage.show();
 	}
 }

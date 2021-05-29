@@ -1,4 +1,4 @@
-package br.com.sistemalivraria.aplicacao.livro;
+package br.com.sistemalivraria.view;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import utils.AlertMessage;
+import utils.CommonFunctions;
 
 public class LivroBoundary extends Application {
 
@@ -30,6 +31,7 @@ public class LivroBoundary extends Application {
 	private Button btnIncluir = new Button("Incluir");
 	private Button btnAlterar = new Button("Alterar");
 	private Button btnExcluir = new Button("Excluir");
+	private Button btnVoltar = new Button("Voltar");
 
 	private LivroControl control = new LivroControl();
 
@@ -64,7 +66,7 @@ public class LivroBoundary extends Application {
 		gp.add(txtLancamento, 1, 4);
 		txtLancamento.setMaxWidth(100);
 		txtLancamento.setPromptText("_ _ / _ _ / _ _ _ _ ");
-		
+
 		Label valor = new Label("Valor");
 		gp.add(valor, 2, 4);
 		GridPane.setHalignment(valor, HPos.CENTER);
@@ -92,11 +94,12 @@ public class LivroBoundary extends Application {
 		gp.add(btnIncluir, 1, 6);
 		gp.add(btnAlterar, 2, 6);
 		gp.add(btnExcluir, 3, 6);
+		gp.add(btnVoltar, 3, 10);
 
 		btnConsultar.setOnAction((e) -> {
 
 			Long isbn = null;
-			
+
 			try {
 				isbn = Long.parseLong(txtIsbn.getText().trim());
 			} catch (Exception e1) {
@@ -104,19 +107,21 @@ public class LivroBoundary extends Application {
 			} finally {
 				isbn = null;
 			}
-			
+
 			Livro livro = control.pesquisar(isbn, txtTitulo.getText().trim());
-			
-			if(livro == null) {
+
+			if (livro == null) {
 				AlertMessage.alert("Livro não encontrado.");
-				clean();
+				CommonFunctions.limparCampos(txtIsbn, txtTitulo, txtAutor, txtEditora, txtLancamento, txtValor,
+						txtQtdadeExemplares);
+				
 			}
-			
+
 			this.entityToBoundary(livro);
 		});
 
 		btnIncluir.setOnAction((e) -> {
-					
+
 			Livro livro = control.pesquisar(Long.parseLong(txtIsbn.getText()), txtTitulo.getText());
 
 			if (livro != null) {
@@ -126,53 +131,69 @@ public class LivroBoundary extends Application {
 					txtValor.getText().replaceAll(",", ".");
 					control.adicionar(boundaryToEntity());
 					this.entityToBoundary(new Livro());
-					clean();
-				
+					CommonFunctions.limparCampos(txtIsbn, txtTitulo, txtAutor, txtEditora, txtLancamento, txtValor,
+							txtQtdadeExemplares);
+
 				} catch (Exception e1) {
 					e1.getMessage();
 				}
 			}
 		});
-		
+
 		btnAlterar.setOnAction((e) -> {
-			
-			if(txtIsbn.getText() != null){
+
+			if (txtIsbn.getText() != null) {
 				AlertMessage.alert("Pesquise por ISBN");
 			}
-			
+
 			Livro livro = new Livro();
-			
-			if(txtIsbn.getText() != null || txtTitulo.getText() != null) {
-				livro = control.pesquisar(Long.parseLong(txtIsbn.getText()), txtTitulo.getText());	
+
+			if (txtIsbn.getText() != null || txtTitulo.getText() != null) {
+				livro = control.pesquisar(Long.parseLong(txtIsbn.getText()), txtTitulo.getText());
 			}
-						
-			if(livro != null) {
+
+			if (livro != null) {
 				try {
-					txtLancamento.setText(txtLancamento.getText().replace("-",""));
-					txtLancamento.setText(txtLancamento.getText().substring(4, 5) + txtLancamento.getText().substring(6, 7) + txtLancamento.getText().substring(0, 3));
+					txtLancamento.setText(txtLancamento.getText().replace("-", ""));
+					txtLancamento.setText(txtLancamento.getText().substring(4, 5)
+							+ txtLancamento.getText().substring(6, 7) + txtLancamento.getText().substring(0, 3));
 					control.alterarDados(this.boundaryToEntity());
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 			}
-			
+
 		});
-		
+
 		btnExcluir.setOnAction((e) -> {
-			
+
 			Livro livro = new Livro();
-			
-			if(txtIsbn.getText() != null || txtTitulo.getText() != null) {
-				livro = control.pesquisar(Long.parseLong(txtIsbn.getText()), txtTitulo.getText());	
+
+			if (txtIsbn.getText() != null || txtTitulo.getText() != null) {
+				livro = control.pesquisar(Long.parseLong(txtIsbn.getText()), txtTitulo.getText());
 			}
-			
-			if(livro == null) {
+
+			if (livro == null) {
 				AlertMessage.alert("Livro não encontrado. Erro ao excluir");
-			} else {				
+			} else {
 				control.excluir(livro.getIsbn());
 				AlertMessage.alert("Livro excluido com sucesso!");
 			}
-			clean();
+			CommonFunctions.limparCampos(txtIsbn, txtTitulo, txtAutor, txtEditora, txtLancamento, txtValor,
+					txtQtdadeExemplares);
+		});
+		
+		btnVoltar.setOnAction((e) -> {
+			
+			TelaInicialFuncionario tela = new TelaInicialFuncionario();
+			
+			try {
+				tela.start(new Stage());
+				CommonFunctions.fecharTela(stage);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			
 		});
 
 		stage.setScene(scn);
@@ -180,20 +201,7 @@ public class LivroBoundary extends Application {
 		stage.show();
 	}
 
-	private void clean() {
-
-		txtIsbn.setText(" ");
-		txtTitulo.setText(" ");
-		txtAutor.setText(" ");
-		txtEditora.setText(" ");
-		
-		txtLancamento.setText(" ");
-		txtValor.setText(" ");
-		txtQtdadeExemplares.setText(" ");
-
-	}
-
-	private Livro boundaryToEntity() throws Exception{
+	private Livro boundaryToEntity() throws Exception {
 
 		Livro livro = new Livro();
 
@@ -202,20 +210,21 @@ public class LivroBoundary extends Application {
 			livro.setIsbn(Long.parseLong(txtIsbn.getText().trim()));
 			livro.setTitulo(txtTitulo.getText().trim());
 			livro.setAutor(txtAutor.getText().trim());
-			
+
 			livro.setEditora(txtEditora.getText().trim());
 			livro.setLancamento(LocalDate.parse(txtLancamento.getText().trim(), dtf));
 			livro.setValor(Float.parseFloat(txtValor.getText().trim()));
-			
+
 			livro.setQtdeExemplares(Integer.parseInt(txtQtdadeExemplares.getText().trim()));
-	
+
 			AlertMessage.alert("Livro incluido com sucesso!");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			AlertMessage.alert("Erro ao processar a solicitação. Tente novamente.");
-		} finally {			
-			clean();
+		} finally {
+			CommonFunctions.limparCampos(txtIsbn, txtTitulo, txtAutor, txtEditora, txtLancamento, txtValor,
+					txtQtdadeExemplares);
 		}
 
 		return livro;
@@ -223,16 +232,16 @@ public class LivroBoundary extends Application {
 
 	private void entityToBoundary(Livro livro) {
 
-		if(livro != null) {
-			
+		if (livro != null) {
+
 			txtIsbn.setText(String.valueOf(livro.getIsbn()));
 			txtTitulo.setText(String.valueOf(livro.getTitulo()));
 			txtAutor.setText(String.valueOf(livro.getAutor()));
-			
+
 			txtEditora.setText(String.valueOf(livro.getEditora()));
 			txtLancamento.setText(String.valueOf(livro.getLancamento()));
 			txtValor.setText(String.valueOf(livro.getValor()));
-			
+
 			txtQtdadeExemplares.setText(String.valueOf(livro.getQtdeExemplares()));
 		}
 	}

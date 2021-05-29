@@ -20,7 +20,7 @@ public class Principal extends Application {
 	public void start(Stage stage) throws Exception {
 
 		GridPane gp = new GridPane();
-		gp.setPadding(new Insets(60, 0, 20, 20));
+		gp.setPadding(new Insets(60, 60, 0, 60));
 		gp.setHgap(10);
 		gp.setVgap(10);
 
