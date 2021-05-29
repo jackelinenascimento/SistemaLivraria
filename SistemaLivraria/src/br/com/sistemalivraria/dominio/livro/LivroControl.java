@@ -1,4 +1,4 @@
-package livro;
+package br.com.sistemalivraria.dominio.livro;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,10 @@
-package livro;
+package br.com.sistemalivraria.aplicacao.livro;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import br.com.sistemalivraria.dominio.livro.Livro;
+import br.com.sistemalivraria.dominio.livro.LivroControl;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -114,7 +116,7 @@ public class LivroBoundary extends Application {
 		});
 
 		btnIncluir.setOnAction((e) -> {
-
+					
 			Livro livro = control.pesquisar(Long.parseLong(txtIsbn.getText()), txtTitulo.getText());
 
 			if (livro != null) {
@@ -133,6 +135,10 @@ public class LivroBoundary extends Application {
 		});
 		
 		btnAlterar.setOnAction((e) -> {
+			
+			if(txtIsbn.getText() != null){
+				AlertMessage.alert("Pesquise por ISBN");
+			}
 			
 			Livro livro = new Livro();
 			
@@ -172,10 +178,6 @@ public class LivroBoundary extends Application {
 		stage.setScene(scn);
 		stage.setTitle("CRUD Livros");
 		stage.show();
-	}
-
-	public static void main(String[] args) {
-		Application.launch(LivroBoundary.class, args);
 	}
 
 	private void clean() {
