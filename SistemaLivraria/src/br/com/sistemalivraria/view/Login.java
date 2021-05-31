@@ -1,5 +1,7 @@
 package br.com.sistemalivraria.view;
 
+import br.com.sistemalivraria.utils.AlertMessage;
+import br.com.sistemalivraria.utils.CommonFunctions;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -11,8 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import utils.AlertMessage;
-import utils.CommonFunctions;
 
 public class Login extends Application {
 

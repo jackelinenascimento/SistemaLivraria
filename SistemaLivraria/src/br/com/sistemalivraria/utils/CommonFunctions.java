@@ -1,4 +1,4 @@
-package utils;
+package br.com.sistemalivraria.utils;
 
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;

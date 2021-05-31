@@ -1,5 +1,6 @@
 package br.com.sistemalivraria.view;
 
+import br.com.sistemalivraria.utils.CommonFunctions;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -8,7 +9,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import utils.CommonFunctions;
 
 public class Principal extends Application {
 

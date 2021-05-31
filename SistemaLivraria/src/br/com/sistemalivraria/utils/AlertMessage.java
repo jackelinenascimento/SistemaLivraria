@@ -1,4 +1,4 @@
-package utils;
+package br.com.sistemalivraria.utils;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
