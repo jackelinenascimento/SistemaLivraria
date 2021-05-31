@@ -1,6 +1,6 @@
-package br.com.sistemalivraria.dominio.funcionario;
+package br.com.sistemalivraria.model.funcionario;
 
-import br.com.sistemalivraria.dominio.usuario.Usuario;
+import br.com.sistemalivraria.model.usuario.Usuario;
 
 public class Funcionario extends Usuario{
 

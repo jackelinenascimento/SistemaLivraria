@@ -1,7 +1,9 @@
-package br.com.sistemalivraria.dominio.livro;
+package br.com.sistemalivraria.controller.livro;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.sistemalivraria.model.livro.Livro;
 
 public class LivroControl {
 

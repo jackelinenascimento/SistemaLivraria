@@ -3,8 +3,8 @@ package br.com.sistemalivraria.view;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import br.com.sistemalivraria.dominio.livro.Livro;
-import br.com.sistemalivraria.dominio.livro.LivroControl;
+import br.com.sistemalivraria.controller.livro.LivroControl;
+import br.com.sistemalivraria.model.livro.Livro;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;

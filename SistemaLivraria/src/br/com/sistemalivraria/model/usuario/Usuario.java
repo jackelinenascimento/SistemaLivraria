@@ -1,4 +1,4 @@
-package br.com.sistemalivraria.dominio.usuario;
+package br.com.sistemalivraria.model.usuario;
 
 public class Usuario {
 	

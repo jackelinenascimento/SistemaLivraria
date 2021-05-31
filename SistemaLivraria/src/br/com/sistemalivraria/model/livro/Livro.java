@@ -1,4 +1,4 @@
-package br.com.sistemalivraria.dominio.livro;
+package br.com.sistemalivraria.model.livro;
 
 import java.time.LocalDate;
 

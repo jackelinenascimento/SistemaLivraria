@@ -1,10 +1,10 @@
-package br.com.sistemalivraria.dominio.venda;
+package br.com.sistemalivraria.model.venda;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import br.com.sistemalivraria.dominio.cliente.Cliente;
-import br.com.sistemalivraria.dominio.livro.Livro;
+import br.com.sistemalivraria.model.cliente.Cliente;
+import br.com.sistemalivraria.model.livro.Livro;
 
 public class Venda {
 	
