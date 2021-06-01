@@ -1,5 +1,7 @@
 package br.com.sistemalivraria.view;
 
+import br.com.sistemalivraria.controller.cliente.ClienteControl;
+import br.com.sistemalivraria.controller.funcionario.FuncionarioControl;
 import br.com.sistemalivraria.utils.AlertMessage;
 import br.com.sistemalivraria.utils.CommonFunctions;
 import javafx.application.Application;
@@ -45,21 +47,30 @@ public class Login extends Application {
 
 		btnconfirmar.setOnMouseClicked((e) -> {
 
-			if (txtUsuario.getText().equals("root") && txtSenha.getText().equals("1234")) {
-					
-				TelaInicialFuncionario tela = new TelaInicialFuncionario();
-				
+			Application tela = null;
+
+			if (FuncionarioControl.logar(txtUsuario.getText(), txtSenha.getText())) {
+
+				tela = new TelaInicialFuncionario();
+			}
+
+			if (ClienteControl.logar(txtUsuario.getText(), txtSenha.getText())) {
+
+				tela = new TelaInicialCliente();
+			}
+
+			if (tela != null) {
 				try {
 					tela.start(new Stage());
 					CommonFunctions.fecharTela(stage);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-				
 			} else {
 				AlertMessage.alert("Dados incorretos. Tente novamente.");
 				CommonFunctions.limparCampos(txtUsuario, txtSenha);
 			}
+
 		});
 
 		btnCancelar.setMinWidth(75);

@@ -29,5 +29,5 @@ public class CommonFunctions {
 			botoes[i].setMinWidth(largura);
 		}
 	}
-
+	
 }
