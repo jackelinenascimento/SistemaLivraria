@@ -12,7 +12,8 @@ import javafx.stage.Stage;
 
 public class TelaInicialCliente extends Application{
 
-	private Button btnLivros = new Button("Livros");
+	private Button btnComprar = new Button("Comprar");
+	private Button btnMeuCarrinho = new Button("Meu Carrinho");
 	private Button btnFecharTela = new Button("Fechar");
 	
 
@@ -28,21 +29,22 @@ public class TelaInicialCliente extends Application{
 		
 		gp.add(new Label("Sistema de Cliente"), 0, 0);
 		
-		gp.add(btnLivros, 0, 1);
+		gp.add(btnComprar, 0, 1);
+		gp.add(btnMeuCarrinho, 0, 2);
 		
-		btnLivros.setOnAction((e) -> {
+		btnComprar.setOnAction((e) -> {
 			
-			LivroBoundary tela = new LivroBoundary();
-			try {
-				tela.start(new Stage());
-				CommonFunctions.fecharTela(stage);
+		//	LivroBoundary tela = new LivroBoundary();
+		//	try {
+		//		tela.start(new Stage());
+		//		CommonFunctions.fecharTela(stage);
 				
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
+		//	} catch (Exception e1) {
+		//		e1.printStackTrace();
+		//	}
 		});
 		
-		CommonFunctions.tamanhoBotao(150, 80, btnLivros);
+		CommonFunctions.tamanhoBotao(150, 80, btnComprar, btnMeuCarrinho);
 
 		gp.add(btnFecharTela, 1, 10);
 		CommonFunctions.tamanhoBotao(50, 20, btnFecharTela);
