@@ -6,7 +6,6 @@ import br.com.sistemalivraria.utils.AlertMessage;
 import br.com.sistemalivraria.utils.CommonFunctions;
 import javafx.application.Application;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,10 +26,9 @@ public class Login extends Application {
 	public void start(Stage stage) throws Exception {
 
 		GridPane gp = new GridPane();
-		gp.setPadding(new Insets(60, 60, 0, 60));
-		gp.setHgap(10);
-		gp.setVgap(10);
-
+		
+		CommonFunctions.tamanhoTela(gp);
+	
 		Scene scn = new Scene(gp, 430, 400);
 
 		gp.add(new Label("Login"), 0, 0);

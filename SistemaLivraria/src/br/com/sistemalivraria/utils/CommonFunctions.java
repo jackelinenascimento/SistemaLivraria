@@ -1,6 +1,7 @@
 package br.com.sistemalivraria.utils;
 
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.GridPane;
@@ -28,6 +29,12 @@ public class CommonFunctions {
 			botoes[i].setMinHeight(comprimento);
 			botoes[i].setMinWidth(largura);
 		}
+	}
+
+	public static void tamanhoTela(GridPane gp) {
+		gp.setPadding(new Insets(60, 60, 0, 60));
+		gp.setHgap(10);
+		gp.setVgap(10);
 	}
 	
 }

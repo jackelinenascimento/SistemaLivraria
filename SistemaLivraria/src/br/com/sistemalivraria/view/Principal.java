@@ -2,7 +2,6 @@ package br.com.sistemalivraria.view;
 
 import br.com.sistemalivraria.utils.CommonFunctions;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -20,9 +19,8 @@ public class Principal extends Application {
 	public void start(Stage stage) throws Exception {
 
 		GridPane gp = new GridPane();
-		gp.setPadding(new Insets(60, 60, 0, 60));
-		gp.setHgap(10);
-		gp.setVgap(10);
+
+		CommonFunctions.tamanhoTela(gp);
 
 		Scene scn = new Scene(gp, 430, 400);
 
