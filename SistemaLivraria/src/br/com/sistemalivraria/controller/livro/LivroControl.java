@@ -14,26 +14,25 @@ public class LivroControl {
 	private List<Livro> livros = new ArrayList<Livro>();
 
 	public void adicionar(Livro livro) {
-		
+
 		try {
-			
+
 			Connection con = BDFunctions.conexaoBD();
 
-			String sql = "insert into livros " +
-                    "(isbn, titulo, autor, editora, valor, qtdadeExemplares)" +
-                    " VALUES (?, ?, ?, ?, ?, ?)";
-			
-            PreparedStatement stmt = con.prepareStatement(sql);
-            
-            stmt.setLong(1, livro.getIsbn());
-            stmt.setString(2, livro.getTitulo());
-            stmt.setString(3, livro.getAutor());
-            stmt.setString(4, livro.getEditora()); 
-            stmt.setFloat(5, livro.getValor());
-            stmt.setInt(6, livro.getQtdeExemplares()); 
-            
-            stmt.execute();
-			
+			String sql = "insert into livros " + "(isbn, titulo, autor, editora, valor, qtdadeExemplares)"
+					+ " VALUES (?, ?, ?, ?, ?, ?)";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			stmt.setLong(1, livro.getIsbn());
+			stmt.setString(2, livro.getTitulo());
+			stmt.setString(3, livro.getAutor());
+			stmt.setString(4, livro.getEditora());
+			stmt.setFloat(5, livro.getValor());
+			stmt.setInt(6, livro.getQtdeExemplares());
+
+			stmt.execute();
+
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
@@ -42,7 +41,7 @@ public class LivroControl {
 	public Livro pesquisarISNB(Long isbn) {
 
 		Livro pesquisa = null;
-		
+
 		try {
 
 			Connection con = BDFunctions.conexaoBD();
@@ -51,7 +50,7 @@ public class LivroControl {
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, "%" + isbn + "%");
 			ResultSet rs = stmt.executeQuery();
-			
+
 			while (rs.next()) {
 				Livro livro = new Livro();
 				livro.setIsbn(rs.getLong("isbn"));
@@ -65,22 +64,22 @@ public class LivroControl {
 			}
 
 			for (Livro l : livros) {
-				if (l.getIsbn().equals(isbn)){
+				if (l.getIsbn().equals(isbn)) {
 					pesquisa = l;
 				}
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return pesquisa;
 	}
-	
+
 	public Livro pesquisarPorTitulo(String titulo) {
 
 		Livro pesquisa = null;
-		
+
 		try {
 
 			Connection con = BDFunctions.conexaoBD();
@@ -89,7 +88,7 @@ public class LivroControl {
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, "%" + titulo + "%");
 			ResultSet rs = stmt.executeQuery();
-			
+
 			while (rs.next()) {
 				Livro livro = new Livro();
 				livro.setIsbn(rs.getLong("isbn"));
@@ -103,11 +102,11 @@ public class LivroControl {
 			}
 
 			for (Livro l : livros) {
-				if (l.getTitulo().contains(titulo)){
+				if (l.getTitulo().contains(titulo)) {
 					pesquisa = l;
 				}
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -117,39 +116,6 @@ public class LivroControl {
 
 	public Livro alterarDados(Livro livroPesquisado) {
 
-		try {
-
-			for (Livro livro : livros) {
-				if (livro.getIsbn().equals(livroPesquisado.getIsbn()) || livro.getTitulo().contains(livroPesquisado.getTitulo())) {
-
-					if (livroPesquisado.getIsbn() != null && livroPesquisado.getIsbn() != livro.getIsbn())
-						livro.setIsbn(livroPesquisado.getIsbn());
-
-					if (livroPesquisado.getTitulo() != null && livroPesquisado.getTitulo() != livro.getTitulo())
-						livro.setTitulo(livroPesquisado.getTitulo());
-
-					if (livroPesquisado.getAutor() != null && livroPesquisado.getAutor() != livro.getAutor())
-						livro.setAutor(livroPesquisado.getTitulo());
-
-					if (livroPesquisado.getEditora() != null && livroPesquisado.getEditora() != livro.getEditora())
-						livro.setEditora(livroPesquisado.getEditora());
-
-					if (livroPesquisado.getValor() != null && livroPesquisado.getValor() != livro.getValor())
-						livro.setValor(livroPesquisado.getValor());
-
-					if (livroPesquisado.getQtdeExemplares() != null
-							&& livroPesquisado.getQtdeExemplares() != livro.getQtdeExemplares())
-						livro.setQtdeExemplares(livroPesquisado.getQtdeExemplares());
-
-					return livro;
-
-				}
-			}
-
-		} catch (Exception e) {
-
-			e.getLocalizedMessage();
-		}
 		return null;
 
 	}

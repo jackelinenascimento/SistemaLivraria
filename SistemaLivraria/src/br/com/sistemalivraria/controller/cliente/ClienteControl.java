@@ -15,29 +15,29 @@ public class ClienteControl {
 
 	static List<Cliente> clientes = new ArrayList<>();
 
-	public static boolean logar(String nome, String senha) {
+	public static boolean logar(String usuario, String senha) {
 
 		try {
 
 			Class.forName("org.mariadb.jdbc.Driver");
 			Connection con = DriverManager.getConnection(Constants.URL, Constants.USER, Constants.PASSWORD);
 
-			String sql = "SELECT nome, senha FROM clientes WHERE nome LIKE ?";
+			String sql = "SELECT nome, senha FROM clientes WHERE usuario LIKE ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setString(1, "%" + nome + "%");
+			stmt.setString(1, "%" + usuario + "%");
 			ResultSet rs = stmt.executeQuery();
 
 			Cliente func = new Cliente();
 
 			while (rs.next()) {
-				func.setNome(rs.getString("nome"));
+				func.setUsuario(rs.getString("usuario"));
 				func.setSenha(rs.getString("senha"));
 
 				clientes.add(func);
 			}
 
 			for (Cliente c : clientes) {
-				if (c.getNome().equals(nome) && c.getSenha().equals(senha)) {
+				if (c.getUsuario().equals(usuario) && c.getSenha().equals(senha)) {
 					return true;
 				}
 			}

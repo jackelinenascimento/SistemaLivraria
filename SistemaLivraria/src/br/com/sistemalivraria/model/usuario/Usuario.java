@@ -4,6 +4,7 @@ public class Usuario {
 	
 	protected Long id;
 	protected String nome;
+	protected String usuario;
 	protected String senha;
 
 	public Long getId() {
@@ -29,4 +30,13 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+	
 }

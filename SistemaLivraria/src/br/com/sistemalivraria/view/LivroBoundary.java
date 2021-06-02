@@ -82,62 +82,63 @@ public class LivroBoundary extends Application {
 		gp.add(btnAlterar, 2, 6);
 		gp.add(btnExcluir, 3, 6);
 		gp.add(btnVoltar, 3, 10);
-		
-		txtIsbn.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d{0,7}?")) {
-                	txtIsbn.setText("");
-                }
-            }
-		});
-		
-		txtValor.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d{0,7}([\\,]\\d{0,4})?")) {
-                    txtValor.setText("");
-                }
-            }
-		});
-		
-		txtQtdadeExemplares.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d{0,7}?")) {
-                	txtQtdadeExemplares.setText("");
-                }
-            }
-		});
 
-		btnConsultar.setOnAction((e) -> {
-			
-			if(txtIsbn.getText().isEmpty() && txtTitulo.getText().isEmpty()) {
-				AlertMessage.alert("Pesquise por ISBN ou Titulo da obra");
-				
-			} else {
-				Livro livro = control.pesquisarPorTitulo(txtTitulo.getText().trim());
-				
-				if (livro == null) {
-					AlertMessage.alert("Livro não encontrado.");
-					CommonFunctions.limparCampos(txtIsbn, txtTitulo, txtAutor, txtEditora, txtValor,
-							txtQtdadeExemplares);
-					
+		txtIsbn.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d{0,7}?")) {
+					txtIsbn.setText("");
 				}
-				
-				this.entityToBoundary(livro);				
 			}
 		});
 
+		txtValor.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d{0,7}([\\,]\\d{0,4})?")) {
+					txtValor.setText("");
+				}
+			}
+		});
+
+		txtQtdadeExemplares.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d{0,7}?")) {
+					txtQtdadeExemplares.setText("");
+				}
+			}
+		});
+
+		btnConsultar.setOnAction((e) -> {
+
+			if (txtIsbn.getText().isEmpty() && txtTitulo.getText().isEmpty()) {
+				AlertMessage.alert("Pesquise por ISBN ou Titulo da obra");
+				throw new IllegalArgumentException();
+			}
+
+			Livro livro = control.pesquisarPorTitulo(txtTitulo.getText().trim());
+
+			if (livro == null) {
+				livro = control.pesquisarISNB(Long.parseLong(txtIsbn.getText().trim()));
+			}
+
+			if (livro == null) {
+				AlertMessage.alert("Livro não encontrado.");
+				CommonFunctions.limparCampos(txtIsbn, txtTitulo, txtAutor, txtEditora, txtValor, txtQtdadeExemplares);
+				throw new IllegalArgumentException();
+			}
+
+			this.entityToBoundary(livro);
+
+		});
+
 		btnIncluir.setOnAction((e) -> {
-			
-			if(txtIsbn.getText().isEmpty() ||
-			   txtTitulo.getText().isEmpty() ||
-			   txtAutor.getText().isEmpty() ||
-			   txtEditora.getText().isEmpty() ||
-			   txtEditora.getText().isEmpty() ||
-			   txtQtdadeExemplares.getText().isEmpty()) {
-				
+
+			if (txtIsbn.getText().isEmpty() || txtTitulo.getText().isEmpty() || txtAutor.getText().isEmpty()
+					|| txtEditora.getText().isEmpty() || txtEditora.getText().isEmpty()
+					|| txtQtdadeExemplares.getText().isEmpty()) {
+
 				AlertMessage.alert("Para incluir, preencha todos os campos");
 				throw new IllegalArgumentException();
 			}
@@ -146,8 +147,7 @@ public class LivroBoundary extends Application {
 
 			if (livro != null) {
 				AlertMessage.alert("ISBN já incluso no sistema!");
-				CommonFunctions.limparCampos(txtIsbn, txtTitulo, txtAutor, txtEditora, txtValor,
-						txtQtdadeExemplares);
+				CommonFunctions.limparCampos(txtIsbn, txtTitulo, txtAutor, txtEditora, txtValor, txtQtdadeExemplares);
 			} else {
 				try {
 					control.adicionar(boundaryToEntity());
@@ -164,20 +164,6 @@ public class LivroBoundary extends Application {
 
 		btnAlterar.setOnAction((e) -> {
 
-			if (txtIsbn.getText().isEmpty()) {
-				AlertMessage.alert("Preencha o ISBN");
-				throw new IllegalArgumentException();
-			}
-
-			Livro livro = control.pesquisarISNB(Long.parseLong(txtIsbn.getText()));
-			
-			if(livro == null) {
-				AlertMessage.alert("Livro não encontrado");
-			}
-
-			this.entityToBoundary(livro);
-			
-			
 		});
 
 		btnExcluir.setOnAction((e) -> {
@@ -185,21 +171,20 @@ public class LivroBoundary extends Application {
 			control.excluir(Long.parseLong(txtIsbn.getText()));
 			AlertMessage.alert("Livro excluido com sucesso!");
 
-			CommonFunctions.limparCampos(txtIsbn, txtTitulo, txtAutor, txtEditora, txtValor,
-					txtQtdadeExemplares);
+			CommonFunctions.limparCampos(txtIsbn, txtTitulo, txtAutor, txtEditora, txtValor, txtQtdadeExemplares);
 		});
-		
+
 		btnVoltar.setOnAction((e) -> {
-			
+
 			TelaInicialFuncionario tela = new TelaInicialFuncionario();
-			
+
 			try {
 				tela.start(new Stage());
 				CommonFunctions.fecharTela(stage);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-			
+
 		});
 
 		stage.setScene(scn);
@@ -225,8 +210,7 @@ public class LivroBoundary extends Application {
 			e.printStackTrace();
 			AlertMessage.alert("Erro ao processar a solicitação. Tente novamente.");
 		} finally {
-			CommonFunctions.limparCampos(txtIsbn, txtTitulo, txtAutor, txtEditora, txtValor,
-					txtQtdadeExemplares);
+			CommonFunctions.limparCampos(txtIsbn, txtTitulo, txtAutor, txtEditora, txtValor, txtQtdadeExemplares);
 		}
 
 		return livro;
