@@ -1,9 +1,10 @@
-package br.com.sistemalivraria.view;
+package br.com.sistemalivraria.view.telasfuncionario;
 
-import br.com.sistemalivraria.controller.funcionario.FuncionarioControl;
-import br.com.sistemalivraria.model.funcionario.Funcionario;
+import br.com.sistemalivraria.controller.cliente.ClienteControl;
+import br.com.sistemalivraria.model.cliente.Cliente;
 import br.com.sistemalivraria.utils.AlertMessage;
 import br.com.sistemalivraria.utils.CommonFunctions;
+import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,7 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class FuncionarioBoundary {
+public class ClienteBoundary extends Application {
+
 	private TextField txtNome = new TextField();
 	private TextField txtUsuario = new TextField();
 	private TextField txtSenha = new TextField();
@@ -23,7 +25,7 @@ public class FuncionarioBoundary {
 	private Button btnExcluir = new Button("Excluir");
 	private Button btnVoltar = new Button("Voltar");
 
-	private FuncionarioControl control = new FuncionarioControl();
+	private ClienteControl control = new ClienteControl();
 
 	public void start(Stage stage) throws Exception {
 
@@ -31,11 +33,11 @@ public class FuncionarioBoundary {
 
 		CommonFunctions.tamanhoTela(gp);
 
-		Scene scn = new Scene(gp, 430, 400);
+		Scene scn =  new Scene(gp, 600, 400);
 
 		gp.add(new Label("Nome"), 0, 0);
 		gp.add(txtNome, 1, 0);
-		txtNome.setMaxWidth(100);
+		GridPane.setColumnSpan(txtNome, 3);
 
 		gp.add(new Label("Usuario"), 0, 1);
 		gp.add(txtUsuario, 1, 1);
@@ -56,7 +58,7 @@ public class FuncionarioBoundary {
 
 		btnExcluir.setMinWidth(75);
 		GridPane.setHalignment(btnExcluir, HPos.CENTER);
-		
+
 		btnVoltar.setMinWidth(75);
 		GridPane.setHalignment(btnVoltar, HPos.CENTER);
 
@@ -73,19 +75,19 @@ public class FuncionarioBoundary {
 				throw new IllegalArgumentException();
 			}
 
-			Funcionario f = control.pesquisarPorNome(txtNome.getText().trim());
+			Cliente c = control.pesquisarPorNome(txtNome.getText().trim());
 
-			if (f == null) {
-				f = control.pesquisarPorUsuario(txtUsuario.getText().trim());
+			if (c == null) {
+				c = control.pesquisarPorUsuario(txtUsuario.getText().trim());
 			}
 
-			if (f == null) {
-				AlertMessage.alert("Funcionario não encontrado.");
+			if (c == null) {
+				AlertMessage.alert("Cliente não encontrado.");
 				CommonFunctions.limparCampos(txtNome, txtUsuario, txtSenha);
 				throw new IllegalArgumentException();
 			}
 
-			this.entityToBoundary(f);
+			this.entityToBoundary(c);
 
 		});
 
@@ -97,17 +99,17 @@ public class FuncionarioBoundary {
 				throw new IllegalArgumentException();
 			}
 
-			Funcionario f = control.pesquisarPorUsuario(txtUsuario.getText());
+			Cliente f = control.pesquisarPorUsuario(txtUsuario.getText());
 
 			if (f != null) {
-				AlertMessage.alert("Escolha outro usuario");
+				AlertMessage.alert("Escolha outro nome de usuario");
 				CommonFunctions.limparCampos(txtNome, txtUsuario, txtSenha);
 			} else {
 				try {
 					control.adicionar(boundaryToEntity());
-					this.entityToBoundary(new Funcionario());
+					this.entityToBoundary(new Cliente());
 					CommonFunctions.limparCampos(txtNome, txtUsuario, txtSenha);
-					AlertMessage.alert("Funcionário incluido com sucesso!");
+					AlertMessage.alert("Cliente incluido com sucesso!");
 
 				} catch (Exception e1) {
 					e1.getMessage();
@@ -121,8 +123,13 @@ public class FuncionarioBoundary {
 
 		btnExcluir.setOnAction((e) -> {
 
+			if (txtUsuario.getText().isEmpty()) {
+				AlertMessage.alert("Preencha o campo usuário");
+				throw new IllegalArgumentException();
+			}
+
 			control.excluir(txtUsuario.getText());
-			AlertMessage.alert("Funcionario excluido com sucesso!");
+			AlertMessage.alert("Cliente excluido com sucesso!");
 
 			CommonFunctions.limparCampos(txtNome, txtUsuario, txtSenha);
 		});
@@ -141,13 +148,13 @@ public class FuncionarioBoundary {
 		});
 
 		stage.setScene(scn);
-		stage.setTitle("Funcionários");
+		stage.setTitle("Clientes");
 		stage.show();
 	}
 
-	private Funcionario boundaryToEntity() throws Exception {
+	private Cliente boundaryToEntity() throws Exception {
 
-		Funcionario f = new Funcionario();
+		Cliente f = new Cliente();
 
 		try {
 
@@ -165,7 +172,7 @@ public class FuncionarioBoundary {
 		return f;
 	}
 
-	private void entityToBoundary(Funcionario f) {
+	private void entityToBoundary(Cliente f) {
 
 		if (f != null) {
 
@@ -174,6 +181,7 @@ public class FuncionarioBoundary {
 			txtSenha.setText(String.valueOf(f.getSenha()));
 
 		}
+
 	}
 
 }

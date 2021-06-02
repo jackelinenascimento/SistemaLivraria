@@ -1,7 +1,6 @@
 package br.com.sistemalivraria.controller.funcionario;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +9,6 @@ import java.util.List;
 
 import br.com.sistemalivraria.model.funcionario.Funcionario;
 import br.com.sistemalivraria.utils.BDFunctions;
-import br.com.sistemalivraria.utils.Constants;
 
 public class FuncionarioControl {
 
@@ -18,28 +16,27 @@ public class FuncionarioControl {
 
 	public static boolean logar(String usuario, String senha) {
 
+
 		try {
 
-			Class.forName("org.mariadb.jdbc.Driver");
-			Connection con = DriverManager.getConnection(Constants.URL, Constants.USER, Constants.PASSWORD);
-
-			String sql = "SELECT id, nome, usuario, senha FROM funcionarios WHERE usuario LIKE ?";
+			Connection con = BDFunctions.conexaoBD();
+			
+			String sql = "SELECT usuario, senha FROM funcionarios WHERE usuario LIKE ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, "%" + usuario + "%");
 			ResultSet rs = stmt.executeQuery();
 
-			while (rs.next()) {
-				Funcionario func = new Funcionario();
-				func.setId(rs.getLong("id"));
-				func.setNome(rs.getString("nome"));
-				func.setUsuario(rs.getString("usuario"));
-				func.setSenha(rs.getString("senha"));
+			Funcionario c = new Funcionario();
 
-				funcionarios.add(func);
+			while (rs.next()) {
+				c.setUsuario(rs.getString("usuario"));
+				c.setSenha(rs.getString("senha"));
+
+				funcionarios.add(c);
 			}
 
-			for (Funcionario f : funcionarios) {
-				if (f.getUsuario().equals(usuario) && f.getSenha().equals(senha)) {
+			for (Funcionario func : funcionarios) {
+				if (func.getUsuario().equals(usuario) && func.getSenha().equals(senha)) {
 					return true;
 				}
 			}
@@ -49,6 +46,7 @@ public class FuncionarioControl {
 		}
 		return false;
 	}
+
 
 	public Funcionario pesquisarPorNome(String nome) {
 
@@ -120,13 +118,41 @@ public class FuncionarioControl {
 	}
 
 	public void adicionar(Funcionario f) {
-		// TODO Auto-generated method stub
-		
+
+		try {
+
+			Connection con = BDFunctions.conexaoBD();
+
+			String sql = "insert into funcionarios " + "(nome, usuario, senha) VALUES (?, ?, ?)";
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			stmt.setString(1, f.getNome());
+			stmt.setString(2, f.getUsuario());
+			stmt.setString(3, f.getSenha());
+
+			stmt.execute();
+
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+
 	}
 
 	public void excluir(String usuario) {
-		// TODO Auto-generated method stub
-		
+
+		try {			
+			Connection con = BDFunctions.conexaoBD();
+			
+			String sql = "delete from funcionarios WHERE usuario LIKE ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, "%" + usuario + "%");
+			stmt.executeQuery();
+					
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+
 	}
 
 }

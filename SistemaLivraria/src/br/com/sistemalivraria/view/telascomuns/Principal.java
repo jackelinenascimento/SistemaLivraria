@@ -1,4 +1,4 @@
-package br.com.sistemalivraria.view;
+package br.com.sistemalivraria.view.telascomuns;
 
 import br.com.sistemalivraria.utils.CommonFunctions;
 import javafx.application.Application;
@@ -23,7 +23,7 @@ public class Principal extends Application {
 
 		CommonFunctions.tamanhoTela(gp);
 
-		Scene scn = new Scene(gp, 430, 400);
+		Scene scn = new Scene(gp, 600, 400);
 
 		labelTitulo.setFont(new Font("Arial", 30));
 		gp.add(labelTitulo, 0, 0);

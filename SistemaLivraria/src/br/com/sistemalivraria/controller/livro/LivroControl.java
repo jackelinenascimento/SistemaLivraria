@@ -3,15 +3,32 @@ package br.com.sistemalivraria.controller.livro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 import br.com.sistemalivraria.model.livro.Livro;
 import br.com.sistemalivraria.utils.BDFunctions;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.control.TableView;
 
 public class LivroControl {
 
-	private List<Livro> livros = new ArrayList<Livro>();
+	private ObservableList<Livro> livros = FXCollections.observableArrayList();
+	private TableView<Livro> table = new TableView<>();
+
+	private StringProperty isbn = new SimpleStringProperty("");
+	private StringProperty titulo = new SimpleStringProperty("");
+	
+	 public void setEntity(Livro l) {
+	        if (l != null) {
+	            titulo.set(l.getTitulo());
+	            isbn.set(l.getIsbn());
+	        }
+	    }
+
 
 	public void adicionar(Livro livro) {
 
@@ -121,19 +138,39 @@ public class LivroControl {
 	}
 
 	public void excluir(Long isbn) {
-		
-		try {			
+
+		try {
 			Connection con = BDFunctions.conexaoBD();
-			
+
 			String sql = "delete from livros WHERE isbn LIKE ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, "%" + isbn + "%");
 			stmt.executeQuery();
-					
+
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-				
+
+	}
+
+	public void generatedTable() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public Node getTable() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property isbnProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property tituloProperty() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,4 +1,4 @@
-package br.com.sistemalivraria.view;
+package br.com.sistemalivraria.view.telasfuncionario;
 
 import br.com.sistemalivraria.utils.CommonFunctions;
 import javafx.application.Application;
@@ -24,7 +24,7 @@ public class TelaInicialFuncionario extends Application {
 
 		CommonFunctions.tamanhoTela(gp);
 
-		Scene scn = new Scene(gp, 430, 400);
+		Scene scn =  new Scene(gp, 600, 400);
 
 		gp.add(new Label("Sistema de Funcionário"), 0, 0);
 

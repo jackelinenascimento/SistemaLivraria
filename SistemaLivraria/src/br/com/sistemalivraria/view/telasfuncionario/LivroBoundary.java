@@ -1,4 +1,4 @@
-package br.com.sistemalivraria.view;
+package br.com.sistemalivraria.view.telasfuncionario;
 
 import br.com.sistemalivraria.controller.livro.LivroControl;
 import br.com.sistemalivraria.model.livro.Livro;
@@ -38,7 +38,7 @@ public class LivroBoundary extends Application {
 
 		CommonFunctions.tamanhoTela(gp);
 
-		Scene scn = new Scene(gp, 430, 400);
+		Scene scn =  new Scene(gp, 600, 400);
 
 		gp.add(new Label("ISBN"), 0, 0);
 		gp.add(txtIsbn, 1, 0);

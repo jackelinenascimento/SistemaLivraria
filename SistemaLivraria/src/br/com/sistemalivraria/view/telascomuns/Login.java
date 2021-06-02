@@ -1,9 +1,11 @@
-package br.com.sistemalivraria.view;
+package br.com.sistemalivraria.view.telascomuns;
 
 import br.com.sistemalivraria.controller.cliente.ClienteControl;
 import br.com.sistemalivraria.controller.funcionario.FuncionarioControl;
 import br.com.sistemalivraria.utils.AlertMessage;
 import br.com.sistemalivraria.utils.CommonFunctions;
+import br.com.sistemalivraria.view.telascliente.TelaInicialCliente;
+import br.com.sistemalivraria.view.telasfuncionario.TelaInicialFuncionario;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.scene.Scene;
@@ -19,19 +21,19 @@ public class Login extends Application {
 
 	private TextField txtUsuario = new TextField();
 	private TextField txtSenha = new PasswordField();
-	private Button btnconfirmar = new Button("Confirmar");
+	private Button btnConfirmar = new Button("Confirmar");
 	private Button btnCancelar = new Button("Cancelar");
 	private Button btnSair = new Button("Fechar");
 
 	public void start(Stage stage) throws Exception {
 
 		GridPane gp = new GridPane();
-		
-		CommonFunctions.tamanhoTela(gp);
-	
-		Scene scn = new Scene(gp, 430, 400);
 
-		gp.add(new Label("Login"), 0, 0);
+		CommonFunctions.tamanhoTela(gp);
+
+		Scene scn = new Scene(gp, 600, 400);
+
+		gp.add(new Label("Usuário"), 0, 0);
 		gp.add(txtUsuario, 0, 1);
 		GridPane.setColumnSpan(txtUsuario, 4);
 
@@ -39,11 +41,11 @@ public class Login extends Application {
 		gp.add(txtSenha, 0, 3);
 		GridPane.setColumnSpan(txtSenha, 4);
 
-		btnconfirmar.setMinWidth(75);
-		GridPane.setHalignment(btnconfirmar, HPos.CENTER);
-		gp.add(btnconfirmar, 0, 4);
+		btnConfirmar.setMinWidth(75);
+		GridPane.setHalignment(btnConfirmar, HPos.CENTER);
+		gp.add(btnConfirmar, 0, 4);
 
-		btnconfirmar.setOnMouseClicked((e) -> {
+		btnConfirmar.setOnMouseClicked((e) -> {
 
 			Application tela = null;
 
