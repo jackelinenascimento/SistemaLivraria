@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -24,7 +25,8 @@ public class Principal extends Application {
 
 		Scene scn = new Scene(gp, 430, 400);
 
-		gp.add(labelTitulo, 2, 0);
+		labelTitulo.setFont(new Font("Arial", 30));
+		gp.add(labelTitulo, 0, 0);
 
 		gp.add(btnEntrar, 0, 1);
 
@@ -40,7 +42,7 @@ public class Principal extends Application {
 			}
 		});
 
-		gp.add(btnSair, 3, 1);
+		gp.add(btnSair, 1, 1);
 
 		btnSair.setOnMouseClicked((e) -> {
 			CommonFunctions.fecharTela(stage);

@@ -1,26 +1,22 @@
 package br.com.sistemalivraria.model.livro;
 
-import java.time.LocalDate;
-
 public class Livro {
 	
 	private Long isbn;
 	private String titulo;
 	private String autor;
 	private String editora;
-	private LocalDate lancamento;
 	private Float valor;
 	private Integer qtdeExemplares;
 	
 	public Livro() {}
 	
-	public Livro(Long isbn, String titulo, String autor, String editora, LocalDate lancamento, Float valor,
+	public Livro(Long isbn, String titulo, String autor, String editora, Float valor,
 			Integer qtdeExemplares) {
 		this.isbn = isbn;
 		this.titulo = titulo;
 		this.autor = autor;
 		this.editora = editora;
-		this.lancamento = lancamento;
 		this.valor = valor;
 		this.qtdeExemplares = qtdeExemplares;
 	}
@@ -39,10 +35,6 @@ public class Livro {
 
 	public void setEditora(String editora) {
 		this.editora = editora;
-	}
-
-	public void setLancamento(LocalDate lancamento) {
-		this.lancamento = lancamento;
 	}
 
 	public void setValor(Float valor) {
@@ -75,10 +67,6 @@ public class Livro {
 		
 	public Integer getQtdeExemplares() {
 		return qtdeExemplares;
-	}
-	
-	public LocalDate getLancamento() {
-		return lancamento;
 	}
 
 }

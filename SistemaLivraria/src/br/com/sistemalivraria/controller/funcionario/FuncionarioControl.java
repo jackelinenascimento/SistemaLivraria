@@ -27,9 +27,8 @@ public class FuncionarioControl {
 			stmt.setString(1, "%" + nome + "%");
 			ResultSet rs = stmt.executeQuery();
 
-			Funcionario func = new Funcionario();
-
 			while (rs.next()) {
+				Funcionario func = new Funcionario();
 				func.setId(rs.getLong("id"));
 				func.setNome(rs.getString("nome"));
 				func.setSenha(rs.getString("senha"));
