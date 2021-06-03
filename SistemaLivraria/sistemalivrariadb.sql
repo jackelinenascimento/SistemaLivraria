@@ -24,7 +24,7 @@ titulo varchar(30) NOT NULL,
 autor varchar(30) NOT NULL,
 editora varchar(30) NOT NULL,
 valor decimal(5,2) NOT NULL,
-qtdadeExemplares int(4) NOT NULL,
+qtdeExemplares int(4) NOT NULL,
 primary key (id)
 );
 
@@ -33,3 +33,5 @@ primary key (id)
 insert into funcionarios (nome, usuario, senha) values ('funcionario', 'f', '1234');
 
 insert into clientes (nome, usuario, senha) values ('cliente', 'c', '1234');
+
+insert into livros (isbn, titulo, autor, editora, valor, qtdeExemplares) values ('123', 'Orgulho e Preconceito', 'Jane Austen', 'Editora', '15.70', '50');

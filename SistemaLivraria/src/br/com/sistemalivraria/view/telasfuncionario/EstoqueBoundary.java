@@ -1,58 +1,81 @@
 package br.com.sistemalivraria.view.telasfuncionario;
 
-import br.com.sistemalivraria.controller.livro.LivroControl;
+import br.com.sistemalivraria.controller.estoque.EstoqueController;
+import br.com.sistemalivraria.model.livro.Livro;
 import br.com.sistemalivraria.utils.CommonFunctions;
 import javafx.application.Application;
-import javafx.geometry.HPos;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class EstoqueBoundary extends Application {
 
-	private TextField txtISBN = new TextField();
-	private TextField txtTitulo = new TextField();
-
-	private Button btnPesquisar = new Button("Pesquisar");
+	private TableView<Livro> table;
+	private ObservableList<Livro> data;
+	private Text actionStatus;
 	private Button btnVoltar = new Button("Voltar");
-
-	private LivroControl control = new LivroControl();
+	
 
 	@Override
 	public void start(Stage stage) throws Exception {
 
-		GridPane gp = new GridPane();
-		BorderPane panePrincipal = new BorderPane();
-		Scene scn = new Scene(panePrincipal, 600, 400);
-
-		gp.add(new Label("ISBN"), 0, 0);
-		gp.add(txtISBN, 1, 0);
-
-		gp.add(new Label("Titulo"), 0, 1);
-		gp.add(txtTitulo, 1, 1);
-
-		btnPesquisar.setMinWidth(75);
-		GridPane.setHalignment(btnPesquisar, HPos.CENTER);
-		gp.add(btnPesquisar, 3, 2);
-
-		btnVoltar.setMinWidth(75);
-		GridPane.setHalignment(btnVoltar, HPos.CENTER);
-		gp.add(btnVoltar, 3, 3);
-
-		control.generatedTable();
-		panePrincipal.setTop(gp);
-		panePrincipal.setCenter(control.getTable());
-
-		//Bindings.bindBidirectional(txtISBN.textProperty(), control.isbnProperty());
-		//Bindings.bindBidirectional(txtTitulo.textProperty(), control.tituloProperty());
-
-		stage.setScene(scn);
 		stage.setTitle("Estoque");
-		stage.show();
+
+		Label label = new Label("Livros Cadastrados");
+		label.setTextFill(Color.DARKBLUE);
+		label.setFont(Font.font("Calibri", FontWeight.BOLD, 30));
+		HBox hb = new HBox();
+		hb.setAlignment(Pos.CENTER);
+		hb.getChildren().add(label);
+
+		table = new TableView<Livro>();
+		data = EstoqueController.getInitialTableData();
+		table.setItems(data);
+
+		TableColumn isbnCol = new TableColumn<Object, Object>("ISBN");
+		isbnCol.setCellValueFactory(new PropertyValueFactory<Object, Object>("isbn"));
+
+		TableColumn tituloCol = new TableColumn<Object, Object>("Titulo");
+		tituloCol.setCellValueFactory(new PropertyValueFactory<Object, Object>("titulo"));
+
+		TableColumn autorCol = new TableColumn<Object, Object>("Autor");
+		autorCol.setCellValueFactory(new PropertyValueFactory<Object, Object>("autor"));
+
+		TableColumn valorCol = new TableColumn<Object, Object>("Valor");
+		valorCol.setCellValueFactory(new PropertyValueFactory<Object, Object>("valor"));
+
+		TableColumn qtdadeExemplaresCol = new TableColumn<Object, Object>("Estoque");
+		qtdadeExemplaresCol.setCellValueFactory(new PropertyValueFactory<Object, Object>("qtdeExemplares"));
+
+		table.getColumns().setAll(isbnCol, tituloCol, autorCol, valorCol, qtdadeExemplaresCol);
+		table.setPrefWidth(450);
+		table.setPrefHeight(300);
+		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+		table.getSelectionModel().selectedIndexProperty().addListener(new RowSelectChangeListener());
+
+		actionStatus = new Text();
+		actionStatus.setFill(Color.FIREBRICK);
+
+		VBox vbox = new VBox(20);
+		vbox.setPadding(new Insets(25, 25, 25, 25));
+		;
+		vbox.getChildren().addAll(hb, table, actionStatus, btnVoltar);
 
 		btnVoltar.setOnAction((e) -> {
 
@@ -64,7 +87,30 @@ public class EstoqueBoundary extends Application {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
+
 		});
+		
+		// Scene
+		Scene scene = new Scene(vbox, 500, 475); // w x h
+		stage.setScene(scene);
+		stage.show();
+
 	}
 
+	private class RowSelectChangeListener implements ChangeListener<Object> {
+
+		@Override
+		public void changed(ObservableValue valorObservado, Object antigoValor, Object novoValor) {
+
+			int ix = Integer.valueOf((String) novoValor);
+			
+			if(ix == data.size()) {
+				return;
+			}
+			
+			Livro livro = data.get(ix);
+			actionStatus.setText(livro.toString());
+
+		}
+	}
 }

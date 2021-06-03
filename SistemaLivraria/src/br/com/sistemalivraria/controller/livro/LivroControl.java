@@ -6,30 +6,13 @@ import java.sql.ResultSet;
 
 import br.com.sistemalivraria.model.livro.Livro;
 import br.com.sistemalivraria.utils.BDFunctions;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.control.TableView;
 
 public class LivroControl {
 
 	private ObservableList<Livro> livros = FXCollections.observableArrayList();
-	private TableView<Livro> table = new TableView<>();
-
-	private StringProperty isbn = new SimpleStringProperty("");
-	private StringProperty titulo = new SimpleStringProperty("");
 	
-	 public void setEntity(Livro l) {
-	        if (l != null) {
-	            titulo.set(l.getTitulo());
-	            isbn.set(l.getIsbn());
-	        }
-	    }
-
-
 	public void adicionar(Livro livro) {
 
 		try {
@@ -59,6 +42,8 @@ public class LivroControl {
 
 		Livro pesquisa = null;
 
+		livros.clear();
+		
 		try {
 
 			Connection con = BDFunctions.conexaoBD();
@@ -97,6 +82,8 @@ public class LivroControl {
 
 		Livro pesquisa = null;
 
+		livros.clear();
+		
 		try {
 
 			Connection con = BDFunctions.conexaoBD();
@@ -152,25 +139,4 @@ public class LivroControl {
 		}
 
 	}
-
-	public void generatedTable() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public Node getTable() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Property isbnProperty() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Property tituloProperty() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
