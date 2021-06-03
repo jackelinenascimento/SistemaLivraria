@@ -29,8 +29,8 @@ public class EstoqueBoundary extends Application {
 	private ObservableList<Livro> data;
 	private Text actionStatus;
 	private Button btnVoltar = new Button("Voltar");
-	
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void start(Stage stage) throws Exception {
 
@@ -89,9 +89,11 @@ public class EstoqueBoundary extends Application {
 			}
 
 		});
-		
-		// Scene
-		Scene scene = new Scene(vbox, 500, 475); // w x h
+
+		table.getSelectionModel().select(0);
+		table.getSelectionModel().getSelectedItem();
+
+		Scene scene = new Scene(vbox, 500, 475);
 		stage.setScene(scene);
 		stage.show();
 
@@ -100,17 +102,15 @@ public class EstoqueBoundary extends Application {
 	private class RowSelectChangeListener implements ChangeListener<Object> {
 
 		@Override
-		public void changed(ObservableValue valorObservado, Object antigoValor, Object novoValor) {
+		public void changed(@SuppressWarnings("rawtypes") ObservableValue valorObservado, Object antigoValor,
+				Object novoValor) {
 
-			int ix = Integer.valueOf((String) novoValor);
-			
-			if(ix == data.size()) {
+			Integer ix = (Integer) novoValor;
+
+			if (ix == data.size()) {
 				return;
 			}
-			
-			Livro livro = data.get(ix);
-			actionStatus.setText(livro.toString());
-
+			data.get(ix);
 		}
 	}
 }

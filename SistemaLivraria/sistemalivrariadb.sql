@@ -35,3 +35,10 @@ insert into funcionarios (nome, usuario, senha) values ('funcionario', 'f', '123
 insert into clientes (nome, usuario, senha) values ('cliente', 'c', '1234');
 
 insert into livros (isbn, titulo, autor, editora, valor, qtdeExemplares) values ('123', 'Orgulho e Preconceito', 'Jane Austen', 'Editora', '15.70', '50');
+insert into livros (isbn, titulo, autor, editora, valor, qtdeExemplares) values ('321', 'O Dia do Curinga', 'Jostien Gaarder', 'Editora', '43.00', '50');
+insert into livros (isbn, titulo, autor, editora, valor, qtdeExemplares) values ('234', 'A Garota das Laranjas', 'Autor', 'Editora', '67.67', '50');
+insert into livros (isbn, titulo, autor, editora, valor, qtdeExemplares) values ('432', 'Código Limpo', 'Autor', 'Editora', '15.15', '50');
+insert into livros (isbn, titulo, autor, editora, valor, qtdeExemplares) values ('345', 'Arquitetura Limpa', 'Autor', 'Editora', '15.70', '50');
+insert into livros (isbn, titulo, autor, editora, valor, qtdeExemplares) values ('543', 'Literocto', 'Autor', 'Editora', '15.70', '50');
+insert into livros (isbn, titulo, autor, editora, valor, qtdeExemplares) values ('456', 'Peru e Bolivia', 'Autor', 'Editora', '15.70', '50');
+insert into livros (isbn, titulo, autor, editora, valor, qtdeExemplares) values ('654', 'O Rei Amarelo', 'Autor', 'Editora', '15.70', '50');
