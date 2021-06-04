@@ -32,6 +32,7 @@ public class Principal extends Application {
 		gp.add(labelTitulo, 4, 0);
 		GridPane.setColumnSpan(labelTitulo, 4);
 
+		btnEntrar.setBorder(null);
 		gp.add(btnEntrar, 4, 4);
 		gp.add(btnSair, 7, 4);
 

@@ -2,7 +2,6 @@ package br.com.sistemalivraria.view.telasfuncionario;
 
 import br.com.sistemalivraria.controller.cliente.ClienteControl;
 import br.com.sistemalivraria.model.cliente.Cliente;
-import br.com.sistemalivraria.model.funcionario.Funcionario;
 import br.com.sistemalivraria.utils.AlertMessage;
 import br.com.sistemalivraria.utils.CommonFunctions;
 import javafx.application.Application;
