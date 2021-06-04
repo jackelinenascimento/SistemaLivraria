@@ -31,7 +31,7 @@ public class Login extends Application {
 
 		CommonFunctions.tamanhoTela(gp);
 
-		Scene scn = new Scene(gp, 600, 400);
+		Scene scn = new Scene(gp, 450, 400);
 
 		gp.add(new Label("Usuário"), 0, 0);
 		gp.add(txtUsuario, 0, 1);

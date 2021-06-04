@@ -38,7 +38,7 @@ public class LivroBoundary extends Application {
 
 		CommonFunctions.tamanhoTela(gp);
 
-		Scene scn =  new Scene(gp, 600, 400);
+		Scene scn =  new Scene(gp, 450, 400);
 
 		gp.add(new Label("ISBN"), 0, 0);
 		gp.add(txtIsbn, 1, 0);

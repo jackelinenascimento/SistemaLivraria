@@ -4,15 +4,17 @@ import br.com.sistemalivraria.utils.CommonFunctions;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class Principal extends Application {
 
-	private Text labelTitulo = new Text("Sistema Livraria");
+	private Label labelTitulo = new Label("Sistema Livraria");
 	private Button btnEntrar = new Button("Entrar");
 	private Button btnSair = new Button("Fechar");
 
@@ -23,12 +25,15 @@ public class Principal extends Application {
 
 		CommonFunctions.tamanhoTela(gp);
 
-		Scene scn = new Scene(gp, 600, 400);
+		Scene scn = new Scene(gp, 450, 400);
 
-		labelTitulo.setFont(new Font("Arial", 30));
-		gp.add(labelTitulo, 0, 0);
+		labelTitulo.setTextFill(Color.DARKBLUE);
+		labelTitulo.setFont(Font.font("Calibri", FontWeight.BOLD, 30));
+		gp.add(labelTitulo, 4, 0);
+		GridPane.setColumnSpan(labelTitulo, 4);
 
-		gp.add(btnEntrar, 0, 1);
+		gp.add(btnEntrar, 4, 4);
+		gp.add(btnSair, 7, 4);
 
 		btnEntrar.setOnAction((e) -> {
 			Login login = new Login();
@@ -42,7 +47,6 @@ public class Principal extends Application {
 			}
 		});
 
-		gp.add(btnSair, 1, 1);
 
 		btnSair.setOnMouseClicked((e) -> {
 			CommonFunctions.fecharTela(stage);

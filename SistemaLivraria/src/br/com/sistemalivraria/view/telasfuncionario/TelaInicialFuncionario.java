@@ -24,7 +24,7 @@ public class TelaInicialFuncionario extends Application {
 
 		CommonFunctions.tamanhoTela(gp);
 
-		Scene scn =  new Scene(gp, 600, 400);
+		Scene scn =  new Scene(gp, 450, 400);
 
 		gp.add(new Label("Sistema de Funcionário"), 0, 0);
 

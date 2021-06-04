@@ -33,7 +33,7 @@ public class ClienteBoundary extends Application {
 
 		CommonFunctions.tamanhoTela(gp);
 
-		Scene scn =  new Scene(gp, 600, 400);
+		Scene scn =  new Scene(gp, 450, 400);
 
 		gp.add(new Label("Nome"), 0, 0);
 		gp.add(txtNome, 1, 0);

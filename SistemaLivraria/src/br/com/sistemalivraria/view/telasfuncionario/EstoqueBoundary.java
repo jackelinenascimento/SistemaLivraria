@@ -74,7 +74,6 @@ public class EstoqueBoundary extends Application {
 
 		VBox vbox = new VBox(20);
 		vbox.setPadding(new Insets(25, 25, 25, 25));
-		;
 		vbox.getChildren().addAll(hb, table, actionStatus, btnVoltar);
 
 		btnVoltar.setOnAction((e) -> {
@@ -93,7 +92,7 @@ public class EstoqueBoundary extends Application {
 		table.getSelectionModel().select(0);
 		table.getSelectionModel().getSelectedItem();
 
-		Scene scene = new Scene(vbox, 500, 475);
+		Scene scene = new Scene(vbox, 450, 400);
 		stage.setScene(scene);
 		stage.show();
 
