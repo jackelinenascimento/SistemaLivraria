@@ -70,19 +70,21 @@ public class FuncionarioBoundary {
 
 			if (txtNome.getText().isEmpty() && txtUsuario.getText().isEmpty()) {
 				AlertMessage.alert("Pesquise por Nome ou Usuario");
-				throw new IllegalArgumentException();
+				return;
 			}
 
-			Funcionario f = control.pesquisarPorNome(txtNome.getText().trim());
+			Funcionario f = null;
+			
+			if(txtNome.getText() != null && !txtNome.getText().isEmpty())
+				f = control.pesquisarPorNome(txtNome.getText().trim());
 
-			if (f == null) {
+			if(txtUsuario.getText() != null && !txtUsuario.getText().isEmpty())
 				f = control.pesquisarPorUsuario(txtUsuario.getText().trim());
-			}
 
 			if (f == null) {
 				AlertMessage.alert("Funcionario não encontrado.");
 				CommonFunctions.limparCampos(txtNome, txtUsuario, txtSenha);
-				throw new IllegalArgumentException();
+				return;
 			}
 
 			this.entityToBoundary(f);
@@ -94,7 +96,7 @@ public class FuncionarioBoundary {
 			if (txtNome.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtSenha.getText().isEmpty()) {
 
 				AlertMessage.alert("Para incluir, preencha todos os campos");
-				throw new IllegalArgumentException();
+				return;
 			}
 
 			Funcionario f = control.pesquisarPorUsuario(txtUsuario.getText());
@@ -123,7 +125,7 @@ public class FuncionarioBoundary {
 			
 			if(txtUsuario.getText().isEmpty()) {
 				AlertMessage.alert("Preencha o campo usuário");
-				throw new IllegalArgumentException();
+				return;
 			}
 
 			control.excluir(txtUsuario.getText());

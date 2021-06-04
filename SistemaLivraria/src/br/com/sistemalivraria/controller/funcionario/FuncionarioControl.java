@@ -16,7 +16,8 @@ public class FuncionarioControl {
 
 	public static boolean logar(String usuario, String senha) {
 
-
+		funcionarios.clear();
+		
 		try {
 
 			Connection con = BDFunctions.conexaoBD();
@@ -49,6 +50,12 @@ public class FuncionarioControl {
 
 
 	public Funcionario pesquisarPorNome(String nome) {
+		
+		funcionarios.clear();
+		
+		if(nome == null) {
+			return null;
+		}
 
 		Funcionario pesquisa = null;
 
@@ -84,6 +91,13 @@ public class FuncionarioControl {
 	}
 
 	public Funcionario pesquisarPorUsuario(String usuario) {
+
+		funcionarios.clear();
+		
+		if(usuario == null) {
+			return null;
+		}
+
 		Funcionario pesquisa = null;
 
 		try {
