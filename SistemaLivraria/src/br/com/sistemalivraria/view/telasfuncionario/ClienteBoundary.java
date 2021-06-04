@@ -2,6 +2,7 @@ package br.com.sistemalivraria.view.telasfuncionario;
 
 import br.com.sistemalivraria.controller.cliente.ClienteControl;
 import br.com.sistemalivraria.model.cliente.Cliente;
+import br.com.sistemalivraria.model.funcionario.Funcionario;
 import br.com.sistemalivraria.utils.AlertMessage;
 import br.com.sistemalivraria.utils.CommonFunctions;
 import javafx.application.Application;
@@ -72,22 +73,24 @@ public class ClienteBoundary extends Application {
 
 			if (txtNome.getText().isEmpty() && txtUsuario.getText().isEmpty()) {
 				AlertMessage.alert("Pesquise por Nome ou Usuario");
-				throw new IllegalArgumentException();
+				return;
 			}
 
-			Cliente c = control.pesquisarPorNome(txtNome.getText().trim());
+			Cliente f = null;
+			
+			if(txtNome.getText() != null && !txtNome.getText().isEmpty())
+				f = control.pesquisarPorNome(txtNome.getText().trim());
 
-			if (c == null) {
-				c = control.pesquisarPorUsuario(txtUsuario.getText().trim());
-			}
+			if(txtUsuario.getText() != null && !txtUsuario.getText().isEmpty())
+				f = control.pesquisarPorUsuario(txtUsuario.getText().trim());
 
-			if (c == null) {
-				AlertMessage.alert("Cliente não encontrado.");
+			if (f == null) {
+				AlertMessage.alert("Funcionario não encontrado.");
 				CommonFunctions.limparCampos(txtNome, txtUsuario, txtSenha);
-				throw new IllegalArgumentException();
+				return;
 			}
 
-			this.entityToBoundary(c);
+			this.entityToBoundary(f);
 
 		});
 

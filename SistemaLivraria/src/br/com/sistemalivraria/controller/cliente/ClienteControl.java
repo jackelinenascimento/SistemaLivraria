@@ -16,6 +16,8 @@ public class ClienteControl {
 
 	public static boolean logar(String usuario, String senha) {
 
+		clientes.clear();
+		
 		try {
 
 			Connection con = BDFunctions.conexaoBD();
@@ -47,6 +49,8 @@ public class ClienteControl {
 	}
 
 	public Cliente pesquisarPorNome(String nome) {
+		
+		clientes.clear();
 		
 		Cliente pesquisa = null;
 
@@ -82,6 +86,8 @@ public class ClienteControl {
 	}
 
 	public Cliente pesquisarPorUsuario(String usuario) {
+		
+		clientes.clear();
 		
 		Cliente pesquisa = null;
 
